@@ -25,7 +25,7 @@ SECRET_KEY = '6k-!4#=9&zz+xg#)mi4)5zawt5^w*e_yznir90g)luqfsu@%3p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -127,7 +127,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # django-haystack
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'ENGINE': 'apps.blog.whoosh_cn_backend.WhooshEngine',
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
