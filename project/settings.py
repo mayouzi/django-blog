@@ -136,3 +136,18 @@ HAYSTACK_CONNECTIONS = {
 }
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+SESSION_ENGINE = 'redis_sessions.session'
+
+SESSION_REDIS = {
+    'host': '127.0.0.1',
+    'port': 6379,
+    'db': 0,
+    'prefix': 'session',
+    'socket_timeout': 1,
+    'unix_domain_socket_path': '/var/run/redis/redis.sock',
+}
+
+SESSION_COOKIE_AGE = 60 * 60 * 2
+# set session invalid when browser were closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
