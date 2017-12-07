@@ -21,7 +21,7 @@ from django.http import HttpResponse
 from apps.blog.feeds import AllPostsRssFeed
 
 urlpatterns = [
-    url(r'^admin/$', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'', include('apps.blog.urls')),
     url(r'', include('apps.comments.urls')),
     url(r'^robots\.txt$', lambda r: HttpResponse('User-agent: *\nDisallow: /', content_type='text/plain')),
