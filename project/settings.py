@@ -86,21 +86,21 @@ LOGGING_CONF = {
     'handlers': {
         'error': {
             'class':'logging.handlers.RotatingFileHandler',
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'formatter': 'simple',
             'filename': os.path.join(LOG_DIR, 'error.log'),
         },
     },
     'loggers': {
         'errorlog': {
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'handlers': ['error'],
             'propagate': False
         },
     },
     'root': {
         'handlers': ['error'],
-        'level': 'DEBUG',
+        'level': 'ERROR',
     }
 }
 
