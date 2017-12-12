@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django_mysqlpool.backends.mysqlpool',
         'NAME': 'blog',
         'USER': 'root',
         'PASSWORD': '123456',
@@ -86,6 +86,15 @@ DATABASES = {
         'OPTIONS': {
         },
     }
+}
+
+MYSQLPOOL_BACKEND = 'QueuePool'
+
+MYSQLPOOL_ARGUMENTS = {
+    'use_threadlocal': False,
+    'recycle': 600,
+    'pool_size': 10,
+    'max_overflow': 15,
 }
 
 # Password validation
