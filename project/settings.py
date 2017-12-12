@@ -141,12 +141,10 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 SESSION_ENGINE = 'redis_sessions.session'
 
 SESSION_REDIS = {
-    'host': '127.0.0.1',
-    'port': 6379,
     'db': 0,
     'prefix': 'session',
     'socket_timeout': 1,
-    'unix_domain_socket_path': '/var/run/redis/redis.sock',
+    'unix_domain_socket_path': '/tmp/redis.sock',
 }
 
 SESSION_COOKIE_AGE = 60 * 60 * 2
@@ -154,14 +152,9 @@ SESSION_COOKIE_AGE = 60 * 60 * 2
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 CACHEOPS_REDIS = {
-    'host': '127.0.0.1', # redis-server is on same machine
-    'port': 6379,        # default redis port
     'db': 0,             # SELECT non-default redis database
-                         # using separate redis db or redis instance
-                         # is highly recommended
-    # 'socket_timeout': 3,   # connection timeout in seconds, optional
-    # 'password': '...',     # optional
-    # 'unix_socket_path': '/var/run/redis/redis.sock' # replaces host and port
+    'socket_timeout': 3,   # connection timeout in seconds, optional
+    'unix_socket_path': '/tmp/redis.sock' # replaces host and port
 }
 
 CACHEOPS = {
