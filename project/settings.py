@@ -10,8 +10,8 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-
 import os
+import logging.config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -71,6 +71,40 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
+
+LOG_DIR = os.path.join(os.path.join(BASE_DIR), 'logs')
+
+LOGGING_CONF = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s|%(levelname)s|%(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'error': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'DEBUG',
+            'formatter': 'simple',
+            'filename': os.path.join(LOG_DIR, 'error.log'),
+        },
+    },
+    'loggers': {
+        'errorlog': {
+            'level': 'DEBUG',
+            'handlers': ['error'],
+            'propagate': False
+        },
+    },
+    'root': {
+        'handlers': ['error'],
+        'level': 'DEBUG',
+    }
+}
+
+logging.config.dictConfig(LOGGING_CONF)
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
