@@ -10,8 +10,8 @@ from django.utils.deprecation import MiddlewareMixin
 errorlog = logging.getLogger("errorlog")
 accesslog = logging.getLogger("accesslog")
 
-class LogMiddleare(MiddlewareMixin):
 
+class LogMiddleare(MiddlewareMixin):
 
     def process_request(self, request):
         accesslog.info('{req_path}'.format(req_path=request.path_info))

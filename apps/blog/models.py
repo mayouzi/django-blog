@@ -3,7 +3,6 @@
 import markdown
 
 from django.db import models
-from apps.cache.models import CacheObject
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.six import python_2_unicode_compatible
@@ -12,7 +11,7 @@ from django.utils.html import strip_tags
 
 # python_2_unicode_compatible 装饰器用于兼容 Python2
 @python_2_unicode_compatible
-class Category(CacheObject):
+class Category(models.Model):
     """
     Django 要求模型必须继承 models.Model 类。
     Category 只需要一个简单的分类名 name 就可以了。
@@ -29,7 +28,7 @@ class Category(CacheObject):
 
 
 @python_2_unicode_compatible
-class Tag(CacheObject):
+class Tag(models.Model):
     """
     标签 Tag 也比较简单，和 Category 一样。
     再次强调一定要继承 models.Model 类！
@@ -41,7 +40,7 @@ class Tag(CacheObject):
 
 
 @python_2_unicode_compatible
-class Post(CacheObject):
+class Post(models.Model):
     """
     文章的数据库表稍微复杂一点，主要是涉及的字段更多。
     """
