@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'', include('apps.blog.urls')),
     url(r'', include('apps.comments.urls')),
     url(r'^robots\.txt$', lambda r: HttpResponse('User-agent: *\nDisallow: /', content_type='text/plain')),
-    url(r'^search/', include('haystack.urls')),
+    # url(r'^search/', include('haystack.urls')),
     url(r'^all/rss/$', AllPostsRssFeed(), name='rss'),
 ]
