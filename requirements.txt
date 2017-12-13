@@ -1,5 +1,4 @@
 Django==1.10.6
-django-cache-machine==1.0.0
 django-cacheops==4.0.3
 django-haystack==2.6.1
 django-mysqlpool==0.2.1
