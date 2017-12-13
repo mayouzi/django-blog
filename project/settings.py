@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6k-!4#=9&zz+xg#)mi4)5zawt5^w*e_yznir90g)luqfsu@%3p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middlewares.log.LogMiddleare',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -90,6 +91,18 @@ LOGGING_CONF = {
             'formatter': 'simple',
             'filename': os.path.join(LOG_DIR, 'error.log'),
         },
+        'access': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'INFO',
+            'formatter': 'simple',
+            'filename': os.path.join(LOG_DIR, 'access.log'),
+        },
+        'root': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'INFO',
+            'formatter': 'simple',
+            'filename': os.path.join(LOG_DIR, 'root.log'),
+        },
     },
     'loggers': {
         'errorlog': {
@@ -97,10 +110,15 @@ LOGGING_CONF = {
             'handlers': ['error'],
             'propagate': False
         },
+        'accesslog': {
+            'level': 'INFO',
+            'handlers': ['access'],
+            'propagate': False
+        },
     },
     'root': {
-        'handlers': ['error'],
-        'level': 'ERROR',
+        'handlers': ['root'],
+        'level': 'INFO',
     }
 }
 

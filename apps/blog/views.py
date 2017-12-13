@@ -50,7 +50,7 @@ class IndexView(ListView):
         在类视图中，这个需要传递的模板变量字典是通过 get_context_data 获得的，
         所以我们复写该方法，以便我们能够自己再插入一些我们自定义的模板变量进去。
         """
-
+        
         # 首先获得父类生成的传递给模板的字典。
         context = super(IndexView, self).get_context_data(**kwargs)
 
