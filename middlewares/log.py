@@ -14,9 +14,10 @@ accesslog = logging.getLogger("accesslog")
 class LogMiddleare(MiddlewareMixin):
 
     def process_request(self, request):
-        accesslog.info('{req_path}'.format(req_path=request.path_info))
+        accesslog.info('{host}|{req_path}'.format(host=request.get_host(),
+                                                  req_path=request.get_full_path()))
 
     def process_exception(self, request, exception):
-        print(dir(request), dir(exception))
-        errorlog.error('|{req_path}|{error}'.format(req_path=request.path, error=exception.args[0]))
+        errorlog.error('|{req_path}|{error}'.format(req_path=request.get_full_path(),
+                                                    error=exception.args[0]))
 
