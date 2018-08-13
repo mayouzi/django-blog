@@ -1,14 +1,19 @@
 # coding=utf-8
-
+import datetime
+import requests
 import markdown
+
 from django.db.models import Q
 from markdown.extensions.toc import TocExtension
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.utils.text import slugify
+from django.views.decorators.http import require_http_methods
+from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from apps.comments.forms import CommentForm
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Smms
 
 
 def about(request):
@@ -200,3 +205,35 @@ def search(request):
     return render(request, 'blog/index.html', {'error_msg': error_msg,
                                                'post_list': post_list})
 
+
+def upload_smms(file_content):
+    url = 'https://sm.ms/api/upload'
+    files = {
+        'smfile': file_content
+    }
+    resp = requests.post(url, files=files)
+    return resp.json()
+
+
+@require_http_methods(['POST'])
+@csrf_exempt
+def upload(request, *args, **kwargs):
+    smfile = request.FILES.get('smfile')
+    if not smfile or smfile.size > 5 * 1024 * 1024:
+        return JsonResponse({'code': 'error', 'massage': 'file param error'})
+    if Smms.objects.filter(
+            create__gte=datetime.datetime.combine(
+                datetime.datetime.now(), datetime.time.min)).count() >= 1000:
+        return JsonResponse({'code': 'error', 'massage': 'upload count limit'})
+    resp = dict(code='success', data={})
+    result = upload_smms(smfile.read())
+    if result['code'] == 'success':
+        sm = Smms(**result['data'])
+        sm.save()
+        if request.POST.get('markdown'):
+            resp['data']['url'] = '![]({url})'.format(url=result['data']['url'])
+        else:
+            resp['data']['url'] = result['data']['url']
+        resp['data']['delete_url'] = result['data']['delete']
+
+    return JsonResponse(resp)

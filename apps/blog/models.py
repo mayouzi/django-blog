@@ -10,6 +10,29 @@ from django.utils.html import strip_tags
 
 
 @python_2_unicode_compatible
+class Smms(models.Model):
+
+    hash = models.CharField(max_length=255)
+    ip = models.CharField(max_length=30)
+    height = models.IntegerField()
+    width = models.IntegerField()
+    size = models.IntegerField()
+    path = models.CharField(max_length=255)
+    storename = models.CharField(max_length=50)
+    url = models.CharField(max_length=255)
+    filename = models.CharField(max_length=50)
+    timestamp = models.IntegerField()
+    delete = models.CharField(max_length=255)
+    create = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.url
+
+    class Meta:
+        db_table = 'smms'
+
+
+@python_2_unicode_compatible
 class Category(models.Model):
 
     name = models.CharField(max_length=100, help_text='分类名')
